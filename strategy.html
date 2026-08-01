@@ -1,0 +1,475 @@
+<title>Стратегия лидерства «В наш дом» — Кызыл</title>
+<style>
+  :root{
+    --bg:#F2EEE6; --surface:#FFFFFF; --surface-2:#EAE3D6;
+    --text:#262220; --text-muted:#6B6259;
+    --accent:#35635C; --accent-soft:#DCE7E4;
+    --critical:#B5482E; --critical-soft:#F5E1DA;
+    --border:#DDD5C7; --good:#3D7A4A; --good-soft:#DFEEE1;
+    --warn:#A9781F; --warn-soft:#F3E6C8;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#1C1A17; --surface:#242220; --surface-2:#2C2924;
+      --text:#EDE8DF; --text-muted:#A79E90;
+      --accent:#6FB3A7; --accent-soft:#243330;
+      --critical:#E08A6D; --critical-soft:#3A2620;
+      --border:#3A352D; --good:#7CBF87; --good-soft:#213426;
+      --warn:#D8B15C; --warn-soft:#3A3120;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#1C1A17; --surface:#242220; --surface-2:#2C2924; --text:#EDE8DF; --text-muted:#A79E90;
+    --accent:#6FB3A7; --accent-soft:#243330; --critical:#E08A6D; --critical-soft:#3A2620;
+    --border:#3A352D; --good:#7CBF87; --good-soft:#213426; --warn:#D8B15C; --warn-soft:#3A3120;
+  }
+  :root[data-theme="light"]{
+    --bg:#F2EEE6; --surface:#FFFFFF; --surface-2:#EAE3D6; --text:#262220; --text-muted:#6B6259;
+    --accent:#35635C; --accent-soft:#DCE7E4; --critical:#B5482E; --critical-soft:#F5E1DA;
+    --border:#DDD5C7; --good:#3D7A4A; --good-soft:#DFEEE1; --warn:#A9781F; --warn-soft:#F3E6C8;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{ background:var(--bg); color:var(--text); font-family:Georgia,"Times New Roman",serif; line-height:1.6; -webkit-font-smoothing:antialiased; }
+  ::selection{ background:var(--accent-soft); }
+  .chrome-font{ font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
+  a{ color:var(--accent); }
+  a:focus-visible, summary:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
+
+  .shell{ max-width:1180px; margin:0 auto; padding:0 clamp(20px,4vw,56px) 96px; display:grid; grid-template-columns:220px minmax(0,1fr); gap:56px; }
+  @media (max-width:880px){ .shell{ grid-template-columns:1fr; } }
+
+  header.hero{ max-width:1180px; margin:0 auto; padding:clamp(36px,6vw,64px) clamp(20px,4vw,56px) 40px; border-bottom:1px solid var(--border); }
+  .eyebrow{ font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; text-transform:uppercase; letter-spacing:.12em; font-size:.72rem; color:var(--accent); font-weight:600; margin:0 0 14px; }
+  h1.title{ font-size:clamp(1.9rem,4vw,3rem); line-height:1.12; margin:0 0 16px; text-wrap:balance; font-weight:600; letter-spacing:-.01em; }
+  .subhead{ max-width:66ch; color:var(--text-muted); font-size:1.08rem; margin:0 0 24px; }
+  .meta-row{ display:flex; flex-wrap:wrap; gap:10px 28px; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; font-size:.82rem; color:var(--text-muted); }
+  .meta-row b{ color:var(--text); font-weight:600; }
+  .meta-row a{ color:var(--accent); }
+
+  .goal-grid{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:14px; margin:28px 0 0; }
+  @media (max-width:880px){ .goal-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
+  @media (max-width:520px){ .goal-grid{ grid-template-columns:1fr; } }
+  .goal-card{ background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:16px 18px; }
+  .goal-card .gn{ font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; font-size:.68rem; text-transform:uppercase; letter-spacing:.08em; color:var(--accent); font-weight:700; margin-bottom:6px; }
+  .goal-card p{ margin:0; font-size:.9rem; }
+
+  nav.toc{ position:sticky; top:28px; align-self:start; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; font-size:.86rem; padding-top:48px; }
+  nav.toc .toc-label{ text-transform:uppercase; letter-spacing:.1em; font-size:.68rem; color:var(--text-muted); font-weight:700; margin-bottom:12px; }
+  nav.toc ol{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:2px; border-left:1px solid var(--border); }
+  nav.toc a{ display:block; padding:7px 0 7px 16px; color:var(--text-muted); text-decoration:none; border-left:2px solid transparent; margin-left:-1px; }
+  nav.toc a:hover{ color:var(--text); }
+
+  main{ padding-top:48px; min-width:0; }
+  section{ margin-bottom:60px; scroll-margin-top:24px; }
+  section > .num-tag{ font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; font-size:.72rem; letter-spacing:.1em; color:var(--text-muted); text-transform:uppercase; margin:0 0 6px; }
+  h2{ font-size:1.5rem; margin:0 0 8px; text-wrap:balance; font-weight:600; }
+  .phase-when{ font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; font-size:.82rem; color:var(--text-muted); margin:0 0 16px; padding-bottom:14px; border-bottom:1px solid var(--border); }
+  .phase-logic{ background:var(--surface-2); border-radius:6px; padding:14px 18px; font-size:.92rem; color:var(--text-muted); margin:0 0 22px; max-width:76ch; }
+  .phase-logic b{ color:var(--text); }
+  h3{ font-size:1.06rem; margin:0; font-weight:600; }
+  p{ max-width:74ch; margin:0 0 14px; }
+  ul, ol{ max-width:74ch; padding-left:1.3em; margin:0 0 14px; }
+  li{ margin-bottom:6px; }
+  strong{ font-weight:600; }
+
+  details.step{ background:var(--surface); border:1px solid var(--border); border-radius:6px; margin-bottom:12px; overflow:hidden; }
+  details.step > summary{
+    cursor:pointer; list-style:none; padding:14px 18px; display:flex; align-items:center; gap:12px;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; font-weight:600; font-size:.98rem;
+  }
+  details.step > summary::-webkit-details-marker{ display:none; }
+  details.step > summary::before{
+    content:"+"; color:var(--accent); font-weight:700; font-size:1.1rem; width:18px; flex:none; text-align:center;
+  }
+  details.step[open] > summary::before{ content:"–"; }
+  details.step .step-body{ padding:0 18px 18px 48px; border-top:1px solid var(--border); padding-top:14px; }
+  details.step .step-when{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; font-size:.72rem; color:var(--text-muted);
+    text-transform:uppercase; letter-spacing:.05em; margin-left:auto; white-space:nowrap;
+  }
+
+  .table-wrap{ overflow-x:auto; margin:18px 0 28px; border:1px solid var(--border); border-radius:6px; }
+  table{ border-collapse:collapse; width:100%; min-width:520px; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; font-size:.86rem; }
+  thead th{ text-align:left; background:var(--surface-2); color:var(--text-muted); font-weight:600; text-transform:uppercase; letter-spacing:.04em; font-size:.7rem; padding:10px 14px; border-bottom:1px solid var(--border); white-space:nowrap; }
+  tbody td{ padding:10px 14px; border-bottom:1px solid var(--border); vertical-align:top; }
+  tbody tr:last-child td{ border-bottom:none; }
+  tbody tr:hover{ background:var(--surface-2); }
+
+  .timeline{ position:relative; margin:20px 0 8px; padding-left:28px; border-left:2px solid var(--border); display:flex; flex-direction:column; gap:20px; }
+  .tl-item{ position:relative; max-width:76ch; }
+  .tl-item::before{ content:""; position:absolute; left:-34px; top:4px; width:12px; height:12px; border-radius:50%; background:var(--accent); border:2px solid var(--bg); box-shadow:0 0 0 2px var(--accent); }
+  .tl-item .tt{ font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; font-weight:700; font-size:.94rem; }
+  .tl-item .tw{ font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; font-size:.76rem; color:var(--text-muted); }
+  .tl-item p{ margin:4px 0 0; font-size:.9rem; }
+
+  .risk-card{ display:flex; gap:14px; padding:14px 18px; border:1px solid var(--border); border-left:4px solid var(--warn); background:var(--warn-soft); border-radius:4px; margin-bottom:10px; max-width:78ch; }
+  .risk-card .rn{ font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; font-weight:700; color:var(--warn); font-size:.98rem; white-space:nowrap; }
+  .risk-card p{ margin:0; font-size:.92rem; }
+  .risk-card b{ color:var(--text); }
+
+  .usage-box{ background:var(--surface-2); border:1px solid var(--border); border-radius:6px; padding:18px 20px; max-width:78ch; font-size:.94rem; }
+
+  footer{ max-width:1180px; margin:0 auto; padding:32px clamp(20px,4vw,56px) 64px; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; font-size:.8rem; color:var(--text-muted); border-top:1px solid var(--border); }
+  footer a{ color:var(--text-muted); }
+
+  @media (prefers-reduced-motion:no-preference){ section{ animation:rise .5s ease both; } @keyframes rise{ from{ opacity:0; transform:translateY(6px);} to{ opacity:1; transform:none;} } }
+</style>
+
+<header class="hero">
+  <p class="eyebrow">Магазины · Кызыл · Маркетинг</p>
+  <h1 class="title">Стратегия лидерства: путь к самой сильной сети стройматериалов в Кызыле</h1>
+  <p class="subhead">Пошаговый операционный план — от починки сервиса в одной точке до сети из трёх магазинов и статуса №1 по репутации, охвату и обороту в Республике Тыва. Каждый шаг — конкретное действие, а не общий совет.</p>
+  <div class="meta-row">
+    <span><b>Дата</b> 1 августа 2026</span>
+    <span><b>Горизонт</b> 18–24 месяца</span>
+    <span><a href="index.html">← План развития и динамика</a></span>
+  </div>
+
+  <div class="goal-grid">
+    <div class="goal-card"><div class="gn">Репутация</div><p>Рейтинг 4.7+ на 2ГИС и Яндекс.Картах при 100+ отзывах на точку — выше всех локальных конкурентов</p></div>
+    <div class="goal-card"><div class="gn">Охват</div><p>Больше точек продаж/ПВЗ в Кызыле и агломерации, чем у любого другого игрока</p></div>
+    <div class="goal-card"><div class="gn">Узнаваемость</div><p>Первый бренд, который называют жители на вопрос «где купить стройматериалы»</p></div>
+    <div class="goal-card"><div class="gn">Экономика</div><p>Самый высокий оборот и доля повторных покупок среди специализированных сетей Тывы</p></div>
+  </div>
+</header>
+
+<div class="shell">
+  <nav class="toc chrome-font">
+    <p class="toc-label">Этапы</p>
+    <ol>
+      <li><a href="#overview">Обзор дорожной карты</a></li>
+      <li><a href="#p0">0 · Фундамент</a></li>
+      <li><a href="#p1">1 · Цифра и B2B</a></li>
+      <li><a href="#p2">2 · Удержание</a></li>
+      <li><a href="#p3">3 · Второй магазин</a></li>
+      <li><a href="#p4">4 · Западный форпост</a></li>
+      <li><a href="#p5">5 · Консолидация</a></li>
+      <li><a href="#kpi">Сводка KPI</a></li>
+      <li><a href="#risks">Риски</a></li>
+      <li><a href="#usage">Как пользоваться</a></li>
+    </ol>
+  </nav>
+
+  <main>
+
+    <section id="overview">
+      <p class="num-tag">Дорожная карта</p>
+      <h2>Обзор: шесть этапов до лидерства</h2>
+      <p style="margin-top:14px;">Логика последовательная: сначала заслужить право расти (сервис и репутация), потом усилить цифровое присутствие и B2B-канал, закрепить удержание клиентов — и только затем масштабировать сеть географически.</p>
+      <div class="timeline">
+        <div class="tl-item"><span class="tt">Этап 0 · Фундамент</span> <span class="tw">0–3 мес</span><p>Сервис, репутация на геосервисах, соцсети, реферальная программа</p></div>
+        <div class="tl-item"><span class="tt">Этап 1 · Цифра и B2B</span> <span class="tw">2–4 мес</span><p>VK-реклама, Telegram, партнёрства с прорабами, SEO, визуальный контент</p></div>
+        <div class="tl-item"><span class="tt">Этап 2 · Удержание</span> <span class="tw">3–6 мес</span><p>Программа лояльности, регулярные рассылки, ивенты</p></div>
+        <div class="tl-item"><span class="tt">Этап 3 · Второй магазин</span> <span class="tw">6–9 мес</span><p>Каа-Хем / мкр «Спутник» — открытие в окно ипотечного спроса авг.–сент.</p></div>
+        <div class="tl-item"><span class="tt">Этап 4 · Западный форпост</span> <span class="tw">9–18 мес</span><p>Ак-Довурак + Кызыл-Мажалык — магазин или ПВЗ</p></div>
+        <div class="tl-item"><span class="tt">Этап 5 · Консолидация</span> <span class="tw">18+ мес</span><p>Единый бренд, централизация закупок, PR, оценка Чадана</p></div>
+      </div>
+    </section>
+
+    <section id="p0">
+      <p class="num-tag">Этап 0</p>
+      <h2>Заслужить право быть №1</h2>
+      <p class="phase-when">Месяцы 0–3</p>
+      <div class="phase-logic">Нельзя строить сеть и рекламный шум поверх магазина с проблемным сервисом — это ускорит распространение негатива, а не продаж. Сначала чинится основа, потом масштабируется. <b>Уже сделано:</b> рейтинг 2ГИС вырос с 2.6 до 3.8 за первую неделю сбора отзывов — план ниже опирается на этот старт.</div>
+
+      <details class="step" open>
+        <summary>0.1 — Устранить корневую причину низких оценок<span class="step-when">Недели 1–2</span></summary>
+        <div class="step-body">
+          <p>Жалобы концентрируются на конкретном сотруднике («ноль нужной информации»), факте, что покупателей выгоняли перед закрытием, и на том, что персонал «смотрит TikTok». Также расхождение: сайт — до 19:00, в отзывах — раньше.</p>
+          <ol>
+            <li>Личный разговор с каждым консультантом отдельно (не общее собрание) — показать конкретные отзывы, выслушать версию.</li>
+            <li>Сверить фактический режим работы за 2 недели с заявленным 9:00–19:00 — привести в соответствие факт или сайт.</li>
+            <li>Ввести письменный стандарт из 5 пунктов: здороваться в первые 30 сек, не пользоваться телефоном при покупателях, всегда предлагать расчёт материала, обслуживать до фактического закрытия, провожать до кассы.</li>
+            <li>«Тайная закупка» — попросить незнакомого сотрудникам человека сходить и зафиксировать впечатления по стандарту. Повторить через месяц.</li>
+            <li>Если проблема системная у конкретного человека — принять кадровое решение (предупреждение / обучение / замена).</li>
+          </ol>
+          <p><strong>Критерий готовности:</strong> три «тайные закупки» подряд без сервисных нареканий.</p>
+        </div>
+      </details>
+
+      <details class="step">
+        <summary>0.2 — Довести карточки геосервисов до максимума<span class="step-when">Неделя 1 + постоянно</span></summary>
+        <div class="step-body">
+          <p><b>2ГИС:</b></p>
+          <ol>
+            <li>Подтвердить владение точкой в личном кабинете 2ГИС.</li>
+            <li>Загрузить 15–20 фото: фасад, вход, витрины по категориям, касса, сотрудники за прилавком.</li>
+            <li>Прописать полный список подкатегорий (двери, ламинат, кварцвинил, плитка, обои и т.д.) — влияет на показ по запросам.</li>
+            <li>Указать все контакты: телефон, WhatsApp, сайт, актуальный режим работы.</li>
+            <li>Добавить раздел «Товары»/«Прайс» с 15–20 ходовыми позициями и ценами, если доступно.</li>
+          </ol>
+          <p><b>Яндекс.Карты:</b> подтвердить бизнес в Яндекс.Бизнес, синхронизировать фото и описание, включить онлайн-заявку.</p>
+          <p><b>Постоянная поддержка:</b> раз в неделю отвечать на все новые отзывы в течение 24 часов (шаблон: извинение без оправданий → конкретное действие → приглашение решить лично в WhatsApp); раз в месяц обновлять фото.</p>
+        </div>
+      </details>
+
+      <details class="step">
+        <summary>0.3 — Систематизировать сбор отзывов<span class="step-when">Недели 1–4, далее постоянно</span></summary>
+        <div class="step-body">
+          <ol>
+            <li>QR-таблички со ссылкой на форму отзыва — касса, выход, зона консультации.</li>
+            <li>Скрипт кассира: «Оставьте отзыв по QR — это правда помогает, и вам скидка 3% на следующую покупку».</li>
+            <li>Простой учёт (тетрадь/таблица): дата, кто, попросили ли отзыв.</li>
+            <li>Раз в неделю сверять число отзывов с числом «попросили» — искать проседания в конверсии.</li>
+          </ol>
+          <p><strong>Темп:</strong> минимум 3–5 новых оценок на 2ГИС в неделю, пока рейтинг не стабилизируется на 4.5+.</p>
+        </div>
+      </details>
+
+      <details class="step">
+        <summary>0.4 — Запустить локальное цифровое присутствие<span class="step-when">Недели 2–4</span></summary>
+        <div class="step-body">
+          <p><b>ВКонтакте:</b> создать/реактивировать группу, оформить обложку и описание (адрес, часы, WhatsApp-кнопка). План первых 10 постов: знакомство с магазином → обзор зала → акция 3% → «как рассчитать ламинат» → фото довольного клиента → новое поступление → «до/после» → розыгрыш → знакомство с сотрудником → скидка выходного дня. Далее — 2–3 поста в неделю на постоянной основе.</p>
+          <p><b>Одноклассники:</b> реактивировать/создать страницу, дублировать ключевые посты 1–2 раза в неделю, упор на практичный контент под более взрослую аудиторию.</p>
+          <p><b>Локальные паблики-барахолки:</b> найти 3–5 крупнейших пабликов ВК/ОК Кызыла, договориться о размещении, публиковать раз в 1–2 недели конкретную акцию.</p>
+          <p><b>«Вся Тыва»:</b> зарегистрировать магазин как точку продаж в приложении.</p>
+        </div>
+      </details>
+
+      <details class="step">
+        <summary>0.5 — Реферальная программа и база WhatsApp<span class="step-when">Недели 3–4</span></summary>
+        <div class="step-body">
+          <p><b>Реферальная механика:</b> скидка приводящему (~5% на след. покупку) + приведённому (~3% на первую) — цифры сверить с маржой. Отслеживание: кодовое слово/имя на кассе, фиксация в учётной таблице.</p>
+          <p><b>База WhatsApp:</b> предлагать на кассе добавление в рассылку с явным согласием. Вести таблицу (телефон, имя, дата, интерес). Частота рассылок — не чаще раза в 1–2 недели, только полезное.</p>
+        </div>
+      </details>
+
+      <p class="quote-link chrome-font" style="font-size:.85rem; color:var(--text-muted);"><strong>Критерий готовности Этапа 0:</strong> рейтинг 2ГИС 4.5+ при 25–30+ оценках, активная группа ВК, работающая реферальная программа, база WhatsApp 50+ контактов.</p>
+    </section>
+
+    <section id="p1">
+      <p class="num-tag">Этап 1</p>
+      <h2>Цифровое доминирование и локальный маркетинг</h2>
+      <p class="phase-when">Месяцы 2–4, частично параллельно с Этапом 0</p>
+      <div class="phase-logic">Как только органика выстроена, добавляется платное усиление и системная работа с B2B-каналом (бригады/прорабы), который для стройматериалов даёт стабильный поток без затрат на рекламу.</div>
+
+      <details class="step">
+        <summary>1.1 — Точечная реклама ВКонтакте<span class="step-when">Месяц 2</span></summary>
+        <div class="step-body">
+          <ol>
+            <li>Настроить VK Реклама, привязать к сообществу.</li>
+            <li>Тестовый бюджет 5 000–10 000 ₽/мес.</li>
+            <li>Таргетинг: Кызыл, интересы «ремонт/строительство/недвижимость», возраст 25–55.</li>
+            <li>2–3 креатива одновременно (акция с ценой/сроком, «до/после», видео-обзор) — сравнить через 1–2 недели, ротировать каждые 2 недели.</li>
+            <li>Отслеживать заявки: спрашивать «откуда узнали» на кассе, фиксировать в таблице.</li>
+          </ol>
+        </div>
+      </details>
+
+      <details class="step">
+        <summary>1.2 — Telegram-канал<span class="step-when">Месяц 2</span></summary>
+        <div class="step-body">
+          <p>Создать канал, короткое имя. Контент — как в ВК, но чаще и короче (наличие, поступления). Продвигать через QR на кассе, WhatsApp-рассылку, упоминание в ВК.</p>
+        </div>
+      </details>
+
+      <details class="step">
+        <summary>1.3 — Партнёрская программа с прорабами и бригадами<span class="step-when">Месяцы 2–4</span></summary>
+        <div class="step-body">
+          <p>Один из самых недооценённых каналов для стройматериалов — решение о материале часто принимает не конечный покупатель, а исполнитель.</p>
+          <ol>
+            <li>Составить список локальных бригад/мастеров (спросить продавцов, кто из постоянных покупателей — не конечный потребитель).</li>
+            <li>Условия: скидка 5–10% по «партнёрской карте»/кодовому слову, либо % бонус с суммы приведённых заказов.</li>
+            <li>Оформить флаер с условиями, раздать лично на объектах.</li>
+            <li>Фиксировать продажи по программе в таблице, раз в месяц пересматривать эффективность по партнёрам.</li>
+            <li>Похожие условия предложить дизайнерам интерьеров, если такие есть в Кызыле.</li>
+          </ol>
+        </div>
+      </details>
+
+      <details class="step">
+        <summary>1.4 — SEO сайта под локальные запросы<span class="step-when">Месяц 3</span></summary>
+        <div class="step-body">
+          <ol>
+            <li>Проверить связки «двери/ламинат/плитка/обои Кызыл» в заголовках и текстах.</li>
+            <li>Блок с адресом, картой проезда, режимом работы на сайте.</li>
+            <li>Перелинковка сайт ↔ карточки 2ГИС/Яндекс.</li>
+            <li>Проверить скорость и работу квиза на мобильных — основной локальный трафик с телефонов.</li>
+          </ol>
+        </div>
+      </details>
+
+      <details class="step">
+        <summary>1.5 — Визуальный контент «до/после»<span class="step-when">Месяцы 2–4</span></summary>
+        <div class="step-body">
+          <p>Договариваться с покупателями о фото ремонта (до/после) за скидку/подарок. Собрать 5–10 кейсов за 2–3 месяца, оформить рубрику «Наши работы» в ВК. При наличии ресурса — завести Instagram под визуальный контент.</p>
+        </div>
+      </details>
+
+      <p class="quote-link chrome-font" style="font-size:.85rem; color:var(--text-muted);"><strong>Критерий готовности:</strong> стабильный поток заявок с рекламы и партнёрской программы, 5+ партнёрских бригад с повторными продажами, органический трафик по локальным запросам.</p>
+    </section>
+
+    <section id="p2">
+      <p class="num-tag">Этап 2</p>
+      <h2>Удержание и повторные покупки</h2>
+      <p class="phase-when">Месяцы 3–6</p>
+      <div class="phase-logic">Привлечь нового покупателя в Тыве дорого — маленький рынок. Дешевле и эффективнее выжимать максимум из уже собранной базы через удержание.</div>
+
+      <details class="step">
+        <summary>2.1 — Программа лояльности<span class="step-when">Месяц 3–4</span></summary>
+        <div class="step-body">
+          <p>Простая накопительная система без сложного ПО на старте: скидочная карта или запись по номеру телефона — например, 3% с первой покупки, 5% после 30 000 ₽, 7% после 100 000 ₽ (цифры сверить с маржинальностью). Через 6–12 месяцев при росте базы — рассмотреть модуль лояльности в товароучётной системе.</p>
+        </div>
+      </details>
+
+      <details class="step">
+        <summary>2.2 — Регулярные коммуникации с базой<span class="step-when">С месяца 3, постоянно</span></summary>
+        <div class="step-body">
+          <ol>
+            <li>Грубая сегментация базы WhatsApp по интересу (двери/полы/отделка).</li>
+            <li>Рассылка раз в 2–4 недели, релевантная сегменту, не всем одно и то же.</li>
+            <li>Сезонные рассылки: весной — общестрой/кровля, осенью — отделка к зиме (двери, полы, обои).</li>
+          </ol>
+        </div>
+      </details>
+
+      <details class="step">
+        <summary>2.3 — Ивенты и активации<span class="step-when">Раз в квартал / раз в 1–2 месяца</span></summary>
+        <div class="step-body">
+          <ol>
+            <li>«День открытых дверей»/распродажа выставочных образцов — раз в квартал, анонс за 1–2 недели по всем каналам.</li>
+            <li>Розыгрыши среди подписчиков — раз в 1–2 месяца.</li>
+            <li>Партнёрские мини-события с бригадами (например, мастер-класс по укладке ламината) — инфоповод для соцсетей и местных СМИ.</li>
+          </ol>
+        </div>
+      </details>
+
+      <p class="quote-link chrome-font" style="font-size:.85rem; color:var(--text-muted);"><strong>Критерий готовности:</strong> доля повторных покупок отслеживается и растёт, программа лояльности работает, регулярный ритм коммуникаций не даёт покупателям «забыть» про магазин.</p>
+    </section>
+
+    <section id="p3">
+      <p class="num-tag">Этап 3</p>
+      <h2>Второй магазин — Каа-Хем / мкр «Спутник»</h2>
+      <p class="phase-when">Месяцы 6–9 · целиться в окно август–сентябрь</p>
+      <div class="phase-logic">Приоритет подтверждён исследованием: зона максимальной новой застройки (мкр «Преображенский» — 880 квартир, водозабор уже построен), 5–15 км от текущей точки — тот же склад и поставщики.</div>
+
+      <details class="step">
+        <summary>3.1 — Выбор конкретной локации<span class="step-when">Месяц 6</span></summary>
+        <div class="step-body">
+          <ol>
+            <li>Личный осмотр 3–5 помещений в Каа-Хеме/Спутнике — приоритет проходимости и близости к новой застройке.</li>
+            <li>Оценка по аренде/покупке, площади, доступности для грузового транспорта, видимости с дороги.</li>
+            <li>Спросить у покупателей из Каа-Хема (если есть в базе) — «куда бы вы поехали за стройматериалами в своём районе».</li>
+          </ol>
+        </div>
+      </details>
+
+      <details class="step">
+        <summary>3.2 — Финансовая модель и бюджет<span class="step-when">Месяц 6</span></summary>
+        <div class="step-body">
+          <ol>
+            <li>Стартовые вложения: ремонт помещения, первая закупка остатка, вывеска, зарплата на первые 2–3 месяца.</li>
+            <li>Точка безубыточности — сверить с реалистичной оценкой спроса Каа-Хема.</li>
+            <li>Источник финансирования: касса, накопленная за Этап 0, либо кредит/партнёрство.</li>
+          </ol>
+        </div>
+      </details>
+
+      <details class="step">
+        <summary>3.3 — Персонал<span class="step-when">Месяц 7</span></summary>
+        <div class="step-body">
+          <p>Нанять 1–2 консультантов заранее, обучить по стандарту из Шага 0.1 — не повторять ошибок текущей точки. Рассмотреть перевод опытного сотрудника на позицию управляющего новой точки для переноса культуры сервиса.</p>
+        </div>
+      </details>
+
+      <details class="step">
+        <summary>3.4 — Предзапусковой маркетинг<span class="step-when">Месяцы 7–8</span></summary>
+        <div class="step-body">
+          <ol>
+            <li>За 3–4 недели — тизерная кампания «скоро открытие» в пабликах Каа-Хема, без точной даты.</li>
+            <li>За неделю — точная дата, акция открытия (скидка 10% первую неделю / подарок первым 50 покупателям).</li>
+            <li>Вывеска/указатель за 2–3 недели до открытия — люди привыкают к месту заранее.</li>
+          </ol>
+        </div>
+      </details>
+
+      <details class="step">
+        <summary>3.5 — Открытие<span class="step-when">Месяцы 8–9</span></summary>
+        <div class="step-body">
+          <ol>
+            <li>«День открытия» с акцией/розыгрышем.</li>
+            <li>Карточки 2ГИС/Яндекс.Карты подключить в первый день, не откладывать.</li>
+            <li>Сбор отзывов новой точки — сразу тем же QR-механизмом.</li>
+          </ol>
+        </div>
+      </details>
+
+      <p class="quote-link chrome-font" style="font-size:.85rem; color:var(--text-muted);"><strong>Критерий готовности:</strong> вторая точка открыта, вышла на плановый оборот за 2–3 месяца, геосервисы сразу на высоком уровне.</p>
+    </section>
+
+    <section id="p4">
+      <p class="num-tag">Этап 4</p>
+      <h2>Западный форпост — Ак-Довурак + Кызыл-Мажалык</h2>
+      <p class="phase-when">Месяцы 9–18</p>
+      <div class="phase-logic">Та же логика, что в Этапе 3, с поправкой на бóльшую дистанцию (~300 км от Кызыла) — цикл повторяется, добавляется расчёт логистики.</div>
+      <ol>
+        <li>Повторить шаги 3.1–3.5 применительно к Ак-Довураку/Кызыл-Мажалыку.</li>
+        <li>Рассчитать логистическое плечо: периодичность и стоимость доставки со склада в Кызыле, либо целесообразность локального склада меньшего объёма.</li>
+        <li>Рассмотреть облегчённый старт — магазин + пункт выдачи (аналог модели РумМаркет) для снижения стартовых вложений и теста спроса.</li>
+        <li>Усиленный контроль стандартов сервиса на старте — удалённую точку сложнее контролировать лично.</li>
+      </ol>
+      <p class="quote-link chrome-font" style="font-size:.85rem; color:var(--text-muted);"><strong>Критерий готовности:</strong> присутствие в западном кусте республики, точка вышла на самоокупаемость.</p>
+    </section>
+
+    <section id="p5">
+      <p class="num-tag">Этап 5</p>
+      <h2>Консолидация лидерства</h2>
+      <p class="phase-when">После 18 месяцев</p>
+      <div class="phase-logic">К этому моменту сеть — минимум 3 точки с сильной репутацией и наработанной базой. Задача — закрепить статус №1, а не просто продолжать расти.</div>
+      <ol>
+        <li><b>Единый фирменный стиль</b> — вывеска, форма сотрудников, оформление ценников по всем точкам одинаковые.</li>
+        <li><b>Централизация закупок</b> — пересмотр условий с поставщиками в сторону объёмных скидок.</li>
+        <li><b>PR и присутствие в инфополе</b> — спонсорство местных мероприятий, комментарии в местных СМИ (Тува-Онлайн и др.) на темы строительства/ремонта.</li>
+        <li><b>Оценка Чадана</b> — по факту результатов Этапа 4, не параллельно с западным форпостом.</li>
+        <li><b>Постоянный мониторинг конкурентов</b> — раз в квартал повторять мини-версию конкурентного анализа по образцу обновления от 01.08.2026.</li>
+        <li><b>B2B-направление</b> — формализовать поставки застройщикам/госзаказу на основе опыта партнёрской программы (Шаг 1.3).</li>
+      </ol>
+    </section>
+
+    <section id="kpi">
+      <p class="num-tag">Сводка</p>
+      <h2>KPI по этапам</h2>
+      <div class="table-wrap" style="margin-top:18px;">
+        <table>
+          <thead><tr><th>Этап</th><th>Срок</th><th>Критерий готовности</th></tr></thead>
+          <tbody>
+            <tr><td>0 · Фундамент</td><td>0–3 мес</td><td>Рейтинг 2ГИС 4.5+/25–30 оценок, активные ВК/ОК, реферальная программа, база WhatsApp 50+</td></tr>
+            <tr><td>1 · Цифра и B2B</td><td>2–4 мес</td><td>Работающая VK-реклама с заявками, 5+ партнёрских бригад, SEO-трафик с сайта</td></tr>
+            <tr><td>2 · Удержание</td><td>3–6 мес</td><td>Программа лояльности запущена, растёт доля повторных покупок</td></tr>
+            <tr><td>3 · Второй магазин</td><td>6–9 мес</td><td>Точка в Каа-Хеме открыта и на плановом обороте</td></tr>
+            <tr><td>4 · Западный форпост</td><td>9–18 мес</td><td>Присутствие в Ак-Довураке/Кызыл-Мажалыке, самоокупаемость</td></tr>
+            <tr><td>5 · Консолидация</td><td>18+ мес</td><td>Единый бренд, 3+ точки, статус №1 по охвату/репутации/обороту</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="risks">
+      <p class="num-tag">Внимание</p>
+      <h2>Ключевые риски и митигация</h2>
+      <div style="margin-top:18px;">
+        <div class="risk-card"><span class="rn">1</span><p><b>Рост рейтинга откатится назад</b>, если не устранена корневая причина сервиса. Митигация — Шаг 0.1 обязателен до масштабирования других активностей.</p></div>
+        <div class="risk-card"><span class="rn">2</span><p><b>Ипотечное окно (авг.–сент. 2026) закроется</b>, если решения по расширению затянутся. Митигация — параллелить Этап 0 и подготовку Этапа 3, не ждать полного завершения одного перед стартом другого.</p></div>
+        <div class="risk-card"><span class="rn">3</span><p><b>Кадровый риск на удалённых точках.</b> Митигация — переносить обученных людей с текущей точки на управляющие позиции, не нанимать управляющего «с улицы» без контроля первые месяцы.</p></div>
+        <div class="risk-card"><span class="rn">4</span><p><b>«Ламинат19» удерживает лидерство по цене.</b> Митигация — не входить в ценовую войну, отстраиваться сервисом, ассортиментом и охватом.</p></div>
+        <div class="risk-card"><span class="rn">5</span><p><b>Маленький рынок — платная реклама быстро выгорает.</b> Митигация — упор на органику (геосервисы, паблики, сарафанное радио, партнёрства), реклама — точечное дополнение.</p></div>
+      </div>
+    </section>
+
+    <section id="usage">
+      <p class="num-tag">Практика</p>
+      <h2>Как пользоваться этим документом</h2>
+      <div class="usage-box" style="margin-top:18px;">
+        <p style="margin:0 0 10px;">Конкретные операционные задачи со сроками и статусами — вести в <code>Трекер задач — В наш дом.xlsx</code> (этап → задача → статус).</p>
+        <p style="margin:0 0 10px;">Этот документ — детальный мануал: сюда заглядывать за инструкцией «как именно это сделать» по каждой задаче трекера.</p>
+        <p style="margin:0;">Раз в 1–3 месяца — сверять этап и корректировать план по факту (как уже сделано контрольным обновлением от 01.08.2026).</p>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  Основа: исследования конкурентов, локаций/спроса, каналов продвижения от 27.07.2026 и контрольное обновление динамики от 01.08.2026. См. также <a href="index.html">план развития сети и динамику изменений</a>.
+</footer>
