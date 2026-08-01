@@ -12,6 +12,11 @@
     --critical-soft:#F5E1DA;
     --border:#DDD5C7;
     --good:#3D7A4A;
+    --good-soft:#DFEEE1;
+    --warn:#A9781F;
+    --warn-soft:#F3E6C8;
+    --info:#3A6B93;
+    --info-soft:#DDE7EF;
   }
   @media (prefers-color-scheme: dark){
     :root{
@@ -26,17 +31,24 @@
       --critical-soft:#3A2620;
       --border:#3A352D;
       --good:#7CBF87;
+      --good-soft:#213426;
+      --warn:#D8B15C;
+      --warn-soft:#3A3120;
+      --info:#8FB6D6;
+      --info-soft:#20303C;
     }
   }
   :root[data-theme="dark"]{
     --bg:#1C1A17; --surface:#242220; --surface-2:#2C2924; --text:#EDE8DF;
     --text-muted:#A79E90; --accent:#6FB3A7; --accent-soft:#243330;
     --critical:#E08A6D; --critical-soft:#3A2620; --border:#3A352D; --good:#7CBF87;
+    --good-soft:#213426; --warn:#D8B15C; --warn-soft:#3A3120; --info:#8FB6D6; --info-soft:#20303C;
   }
   :root[data-theme="light"]{
     --bg:#F2EEE6; --surface:#FFFFFF; --surface-2:#EAE3D6; --text:#262220;
     --text-muted:#6B6259; --accent:#35635C; --accent-soft:#DCE7E4;
     --critical:#B5482E; --critical-soft:#F5E1DA; --border:#DDD5C7; --good:#3D7A4A;
+    --good-soft:#DFEEE1; --warn:#A9781F; --warn-soft:#F3E6C8; --info:#3A6B93; --info-soft:#DDE7EF;
   }
 
   *{box-sizing:border-box;}
@@ -111,6 +123,19 @@
   }
   .meta-row b{ color:var(--text); font-weight:600; }
 
+  .update-badge{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size:.78rem; font-weight:700;
+    color:var(--good);
+    background:var(--good-soft);
+    border:1px solid color-mix(in srgb, var(--good) 40%, transparent);
+    border-radius:99px;
+    padding:5px 14px 5px 10px;
+    margin:0 0 18px;
+  }
+  .update-badge .dot{ width:7px; height:7px; border-radius:50%; background:var(--good); }
+
   /* ---------- Nav ---------- */
   nav.toc{
     position:sticky;
@@ -142,6 +167,7 @@
     margin-left:-1px;
   }
   nav.toc a:hover{ color:var(--text); }
+  nav.toc a.new-link{ color:var(--good); font-weight:600; }
 
   main{ padding-top:48px; min-width:0; }
 
@@ -172,27 +198,30 @@
   li{ margin-bottom:6px; }
   strong{ font-weight:600; }
 
-  /* ---------- Callout: critical ---------- */
+  /* ---------- Callout: critical / good ---------- */
   .callout{
     display:flex; gap:16px;
-    background:var(--critical-soft);
-    border:1px solid color-mix(in srgb, var(--critical) 35%, transparent);
-    border-left:4px solid var(--critical);
     border-radius:4px;
     padding:18px 20px;
     margin:20px 0 28px;
     max-width:74ch;
+    border:1px solid transparent;
+    border-left-width:4px;
   }
+  .callout.critical{ background:var(--critical-soft); border-color:color-mix(in srgb, var(--critical) 35%, transparent); border-left-color:var(--critical); }
+  .callout.good{ background:var(--good-soft); border-color:color-mix(in srgb, var(--good) 35%, transparent); border-left-color:var(--good); }
   .callout .cnum{
     font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     font-weight:700;
-    color:var(--critical);
     font-size:1.6rem;
     line-height:1;
     white-space:nowrap;
   }
+  .callout.critical .cnum{ color:var(--critical); }
+  .callout.good .cnum{ color:var(--good); }
   .callout .ctext{ font-size:.96rem; }
-  .callout .ctext b{ color:var(--critical); }
+  .callout.critical .ctext b{ color:var(--critical); }
+  .callout.good .ctext b{ color:var(--good); }
 
   /* ---------- Rating compare bar ---------- */
   .rating-compare{
@@ -202,42 +231,20 @@
     margin:18px 0 28px;
     font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   }
-  .rating-row{ display:grid; grid-template-columns:150px 1fr 70px; align-items:center; gap:12px; font-size:.85rem; }
+  .rating-row{ display:grid; grid-template-columns:150px 1fr 100px; align-items:center; gap:12px; font-size:.85rem; }
   .rating-row .rlabel{ color:var(--text-muted); }
-  .rating-row .rbar-track{ height:10px; background:var(--surface-2); border-radius:99px; overflow:hidden; border:1px solid var(--border); }
+  .rating-row .rbar-track{ height:10px; background:var(--surface-2); border-radius:99px; overflow:hidden; border:1px solid var(--border); position:relative; }
   .rating-row .rbar-fill{ height:100%; border-radius:99px; }
   .rating-row .rbar-fill.bad{ background:var(--critical); }
   .rating-row .rbar-fill.good{ background:var(--good); }
+  .rating-row .rbar-marker{
+    position:absolute; top:-3px; bottom:-3px; width:2px; background:var(--text-muted);
+    opacity:.55;
+  }
   .rating-row .rval{ font-variant-numeric:tabular-nums; text-align:right; font-weight:700; }
+  .rating-row .rval .delta{ font-size:.72rem; font-weight:700; color:var(--good); display:block; }
 
-  /* ---------- Cards / grids ---------- */
-  .card-grid{
-    display:grid;
-    grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:16px;
-    margin:18px 0 28px;
-  }
-  @media (max-width:640px){ .card-grid{ grid-template-columns:1fr; } }
-  .card{
-    background:var(--surface);
-    border:1px solid var(--border);
-    border-radius:6px;
-    padding:18px 20px;
-  }
-  .card h4{
-    margin:0 0 10px;
-    font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    font-size:.78rem;
-    text-transform:uppercase;
-    letter-spacing:.06em;
-    color:var(--accent);
-    font-weight:700;
-  }
-  .card ul{ margin:0; padding-left:1.1em; font-size:.94rem; }
-  .card.plus h4{ color:var(--good); }
-  .card.minus h4{ color:var(--critical); }
-
-  /* ---------- Table ---------- */
+  /* ---------- Delta table (dynamics) ---------- */
   .table-wrap{ overflow-x:auto; margin:18px 0 28px; border:1px solid var(--border); border-radius:6px; }
   table{
     border-collapse:collapse;
@@ -266,6 +273,46 @@
   tbody tr:last-child td{ border-bottom:none; }
   tbody tr:hover{ background:var(--surface-2); }
   td.stars{ font-variant-numeric:tabular-nums; white-space:nowrap; }
+
+  .delta-pill{
+    display:inline-flex; align-items:center; gap:4px;
+    font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size:.74rem; font-weight:700;
+    border-radius:99px; padding:2px 9px;
+    white-space:nowrap;
+  }
+  .delta-pill.up{ color:var(--good); background:var(--good-soft); }
+  .delta-pill.down{ color:var(--critical); background:var(--critical-soft); }
+  .delta-pill.flat{ color:var(--text-muted); background:var(--surface-2); }
+  .delta-pill.watch{ color:var(--warn); background:var(--warn-soft); }
+  .delta-pill.new{ color:var(--info); background:var(--info-soft); }
+
+  /* ---------- Cards / grids ---------- */
+  .card-grid{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:16px;
+    margin:18px 0 28px;
+  }
+  @media (max-width:640px){ .card-grid{ grid-template-columns:1fr; } }
+  .card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:6px;
+    padding:18px 20px;
+  }
+  .card h4{
+    margin:0 0 10px;
+    font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size:.78rem;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    color:var(--accent);
+    font-weight:700;
+  }
+  .card ul{ margin:0; padding-left:1.1em; font-size:.94rem; }
+  .card.plus h4{ color:var(--good); }
+  .card.minus h4{ color:var(--critical); }
 
   /* ---------- Timeline (phases) ---------- */
   .timeline{
@@ -382,11 +429,12 @@
   <p class="eyebrow">Магазины · Кызыл · Маркетинг</p>
   <h1 class="title">План развития сети «В наш дом» в Республике Тыва</h1>
   <p class="subhead">Синтез трёх исследований — конкуренты, локации и спрос, каналы продвижения — в один рабочий план: что чинить в текущем магазине, где открывать следующие точки и куда вкладывать первые рубли маркетинга.</p>
+  <div class="update-badge"><span class="dot"></span>Обновлено 1 августа — зафиксирована динамика за 5 дней, см. раздел 0</div>
   <div class="meta-row">
-    <span><b>Дата</b> 27 июля 2026</span>
+    <span><b>Публикация</b> 27 июля 2026 · обновление 1 августа 2026</span>
     <span><b>Регион</b> Республика Тыва</span>
     <span><b>Объект</b> «В наш дом», ул. Оюна Курседи, 54, Кызыл</span>
-    <span><b>Источники</b> открытые данные (2ГИС, Росстат, СМИ Тывы)</span>
+    <span><b>Источники</b> открытые данные (2ГИС, Яндекс.Карты, Росстат, СМИ Тывы)</span>
   </div>
 </header>
 
@@ -394,6 +442,7 @@
   <nav class="toc chrome-font">
     <p class="toc-label">Содержание</p>
     <ol>
+      <li><a href="#s0" class="new-link">0. Что изменилось (01.08)</a></li>
       <li><a href="#s1">1. Главный вывод</a></li>
       <li><a href="#s2">2. Текущая позиция</a></li>
       <li><a href="#s3">3. Конкуренты</a></li>
@@ -407,32 +456,76 @@
 
   <main>
 
-    <section id="s1">
-      <p class="num-tag">01</p>
-      <h2>Главный вывод одной строкой</h2>
-      <p>Рынок стройматериалов Тывы маленький, фрагментированный, без федеральных сетей и с растущим спросом — рекордный ввод индивидуального жилья на льготной ипотеке под 2%. Но прямо сейчас магазин теряет клиентов не из-за конкурентов, а из-за низкого рейтинга в 2ГИС. <strong>Первый шаг плана — не открытие новых точек, а починка репутации и сервиса в текущем магазине; только потом — расширение сети, приоритетно внутри Кызылской агломерации.</strong></p>
-    </section>
+    <section id="s0">
+      <p class="num-tag">Обновление · 01.08.2026</p>
+      <h2>0. Что изменилось за 5 дней</h2>
+      <p>Первая контрольная проверка после запуска плана. Ниже — только подтверждённые изменения; там, где данных за неделю действительно нет, честно указано «без изменений».</p>
 
-    <section id="s2">
-      <p class="num-tag">02</p>
-      <h2>Текущая позиция магазина</h2>
-
-      <div class="callout">
-        <div class="cnum">2.6</div>
-        <div class="ctext">Рейтинг «В наш дом» на 2ГИС (11 оценок) против <b>5.0</b> у прямого конкурента «Ламинат19» (50 оценок). Покупатель ищет «двери Кызыл» и выбирает по рейтингу ещё до звонка — пока разрыв не сокращён, реклама и новые точки частично обесцениваются.</div>
+      <div class="callout good">
+        <div class="cnum">2.6 → 3.8</div>
+        <div class="ctext"><b>Рейтинг «В наш дом» на 2ГИС вырос на +1.2 балла</b> (оценок 11 → 14, +3) за первую неделю сбора отзывов. Это прямой измеримый эффект чек-листа «первые 30 дней». Дополнительно обнаружен ранее не учтённый актив — рейтинг на Яндекс.Картах <b>4.3 при 103 оценках</b>: проблема с репутацией была локализована именно в 2ГИС, а не на всех геосервисах сразу.</div>
       </div>
 
       <div class="rating-compare">
         <div class="rating-row">
-          <span class="rlabel">В наш дом</span>
-          <span class="rbar-track"><span class="rbar-fill bad" style="width:52%"></span></span>
-          <span class="rval">2.6 / 11</span>
+          <span class="rlabel">В наш дом · 2ГИС</span>
+          <span class="rbar-track"><span class="rbar-fill good" style="width:76%"></span><span class="rbar-marker" style="left:52%"></span></span>
+          <span class="rval">3.8 / 14<span class="delta">▲ было 2.6/11</span></span>
         </div>
         <div class="rating-row">
-          <span class="rlabel">Ламинат19</span>
-          <span class="rbar-track"><span class="rbar-fill good" style="width:100%"></span></span>
-          <span class="rval">5.0 / 50</span>
+          <span class="rlabel">В наш дом · Яндекс.Карты</span>
+          <span class="rbar-track"><span class="rbar-fill good" style="width:86%"></span></span>
+          <span class="rval">4.3 / 103<span class="delta" style="color:var(--info);">новые данные</span></span>
         </div>
+        <div class="rating-row">
+          <span class="rlabel">Ламинат19 · 2ГИС</span>
+          <span class="rbar-track"><span class="rbar-fill good" style="width:100%"></span></span>
+          <span class="rval">5.0 / 50<span class="delta" style="color:var(--text-muted);">без изменений</span></span>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Показатель</th><th>27.07</th><th>01.08</th><th>Динамика</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Рейтинг «В наш дом», 2ГИС</td><td>2.6 / 11</td><td>3.8 / 14</td><td><span class="delta-pill up">▲ +1.2</span></td></tr>
+            <tr><td>Рейтинг «В наш дом», Яндекс.Карты</td><td>не измерялось</td><td>4.3 / 103</td><td><span class="delta-pill new">● новое</span></td></tr>
+            <tr><td>Рейтинг «Ламинат19», 2ГИС</td><td>5.0 / 50</td><td>5.0</td><td><span class="delta-pill flat">— стабильно</span></td></tr>
+            <tr><td>Новые конкуренты / закрытия</td><td>—</td><td>не выявлено</td><td><span class="delta-pill flat">— стабильно</span></td></tr>
+            <tr><td>Ввод жилья РТ, 2025</td><td>443,3 тыс. м² (прогноз)</td><td>466,9 тыс. м² (факт)</td><td><span class="delta-pill up">▲ +5%</span></td></tr>
+            <tr><td>Ипотека 2%, использовано лимита</td><td>«драйвер»</td><td>745 / 1000 (74,5%)</td><td><span class="delta-pill watch">⚠ риск к Q4</span></td></tr>
+            <tr><td>Приоритет локации Каа-Хем</td><td>гипотеза</td><td>подтверждена документально</td><td><span class="delta-pill up">▲ усилилась</span></td></tr>
+            <tr><td>Новый кандидат-локация</td><td>—</td><td>мкр «Иркутский», Кызыл</td><td><span class="delta-pill new">● новое</span></td></tr>
+            <tr><td>Тарифы радио / билборды</td><td>базовые</td><td>те же</td><td><span class="delta-pill flat">— стабильно</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Что делать по итогам</h3>
+      <ul>
+        <li>Не останавливать сбор отзывов — эффект уже виден, цель 25–30 оценок и 4.3–4.5 на 2ГИС в течение 2–3 недель.</li>
+        <li>Рост пока держится на притоке новых пятёрок — свежие негативные отзывы всё ещё про сервис (конкретный консультант, режим работы расходится с сайтом). Корневая причина не устранена — рост обратим, если её не поправить.</li>
+        <li>Использовать окно август-сентябрь: пик ипотечных сделок ожидается перед изменением условий с 1 октября — если готовить магазин в Каа-Хеме, целиться в этот срок.</li>
+        <li>Проверить мкр «Иркутский» в Кызыле как более дешёвую по логистике альтернативу Каа-Хему.</li>
+      </ul>
+      <p class="quote-link">Полная динамика: <a href="Обновление 2026-08-01/00-динамика-изменений.md">00-динамика-изменений.md</a> · источники обновления: <a href="Обновление 2026-08-01/01-конкуренты-обновление.md">конкуренты</a>, <a href="Обновление 2026-08-01/02-локации-и-спрос-обновление.md">локации и спрос</a>, <a href="Обновление 2026-08-01/03-каналы-обновление.md">каналы</a></p>
+    </section>
+
+    <section id="s1">
+      <p class="num-tag">01</p>
+      <h2>1. Главный вывод одной строкой</h2>
+      <p>Рынок стройматериалов Тывы маленький, фрагментированный, без федеральных сетей и с растущим спросом — рекордный ввод индивидуального жилья на льготной ипотеке под 2%. Магазин уже начал чинить репутацию — рейтинг 2ГИС вырос с 2.6 до 3.8 за первую неделю. <strong>Следующий шаг — довести рейтинг до 4.5+ и устранить корневую сервисную проблему; расширение сети запускать вслед за этим, приоритетно внутри Кызылской агломерации.</strong></p>
+    </section>
+
+    <section id="s2">
+      <p class="num-tag">02</p>
+      <h2>2. Текущая позиция магазина</h2>
+
+      <div class="callout critical">
+        <div class="cnum">3.8</div>
+        <div class="ctext">Рейтинг «В наш дом» на 2ГИС вырос с 2.6 до <b>3.8</b> (14 оценок) — но всё ещё ниже «Ламинат19» (<b>5.0</b>, 50 оценок). Покупатель ищет «двери Кызыл» и выбирает по рейтингу ещё до звонка — разрыв сокращается, но ещё не закрыт.</div>
       </div>
 
       <div class="card-grid">
@@ -442,15 +535,15 @@
             <li>Широкий ассортимент «всё для отделки в одном месте» — шире большинства конкурентов</li>
             <li>Товар в наличии на складе, не под заказ</li>
             <li>Есть сайт с квизом/заявкой — редкость на этом рынке</li>
-            <li>Расположение в «строительном кластере» на Оюна Курседи — покупатель едет туда целенаправленно</li>
+            <li>Сильный, ранее не учтённый рейтинг на Яндекс.Картах — 4.3 при 103 оценках</li>
           </ul>
         </div>
         <div class="card minus">
-          <h4>Критическая проблема</h4>
+          <h4>Что ещё чинить</h4>
           <ul>
-            <li>Рейтинг 2ГИС 2.6 против 5.0 у главного конкурента</li>
-            <li>Причина низких оценок не выяснена — нужно поднять тексты отзывов вручную</li>
-            <li>Разрыв напрямую уводит «горячий» спрос ещё до первого контакта</li>
+            <li>Рейтинг 2ГИС всё ещё ниже конкурента (3.8 против 5.0)</li>
+            <li>Корневая причина низких оценок — сервис (конкретный консультант, расхождение режима работы) — не устранена</li>
+            <li>Рост рейтинга пока держится на притоке новых оценок, а не на изменении сервиса — обратим</li>
           </ul>
         </div>
       </div>
@@ -458,68 +551,69 @@
 
     <section id="s3">
       <p class="num-tag">03</p>
-      <h2>Конкурентная среда — коротко</h2>
+      <h2>3. Конкурентная среда — коротко</h2>
       <ul>
         <li>Рынок фрагментирован, доминирующего игрока нет (доля лидеров ~10–15%), федеральных сетей (Леруа/Лемана, Петрович, OBI) физически в Тыве нет.</li>
-        <li>Главный прямой конкурент — <strong>«Ламинат19»</strong>: тот же профиль (двери + полы + обои), низкие цены, единственный с нормальным сайтом и активной VK-группой. Отстраиваться нужно не ценой, а широтой ассортимента и сервисом.</li>
-        <li>Сосед по кластеру <strong>РумМаркет</strong> (сеть ~5 точек) имеет средний рейтинг (~3.6–3.9) — возможность перехватывать его недовольных клиентов.</li>
-        <li><strong>РумМаркет (Абакан)</strong> держит пункт выдачи ровно по вашему адресу (Оюна Курседи, 54) — модель «завоз с юга» уже работает как конкурент и одновременно подтверждает рабочую логистику Абакан→Кызыл для будущей своей сети.</li>
-        <li>Райцентры (Ак-Довурак, Шагонар, Чадан, Туран) — специализированной розницы почти нет, спрос уходит в Абакан и на маркетплейсы.</li>
-        <li>Онлайн-канал у рынка в целом слабый — сайт и каталог есть только у Ламинат19. Быстрый способ оторваться от конкурентов.</li>
+        <li>Главный прямой конкурент — <strong>«Ламинат19»</strong>: тот же профиль (двери + полы + обои), низкие цены, рейтинг 5.0 стабилен. Отстраиваться нужно не ценой, а широтой ассортимента и сервисом.</li>
+        <li>Сосед по кластеру <strong>РумМаркет</strong> (сеть ~5 точек) — возможность перехватывать его недовольных клиентов.</li>
+        <li><strong>РумМаркет (Абакан)</strong> держит пункт выдачи ровно по вашему адресу (Оюна Курседи, 54) — без изменений за неделю.</li>
+        <li>Райцентры (Ак-Довурак, Шагонар, Чадан, Туран) — специализированной розницы почти нет, новых игроков не появилось.</li>
+        <li>Онлайн-канал у рынка в целом слабый — сайт и каталог есть только у Ламинат19.</li>
       </ul>
 
       <div class="table-wrap">
         <table>
           <thead>
-            <tr><th>Магазин</th><th>Профиль vs «В наш дом»</th><th>Цены</th><th>Размер</th><th class="stars">Рейтинг</th></tr>
+            <tr><th>Магазин</th><th>Профиль vs «В наш дом»</th><th>Цены</th><th>Размер</th><th class="stars">Рейтинг (01.08)</th></tr>
           </thead>
           <tbody>
+            <tr><td><strong>В наш дом</strong></td><td>—</td><td>—</td><td>1 точка</td><td class="stars">3.8 / 14 <span class="delta-pill up" style="margin-left:6px;">▲</span></td></tr>
             <tr><td><strong>Ламинат19</strong></td><td>Почти полное совпадение</td><td>Низкие</td><td>1 точка</td><td class="stars">5.0 (50)</td></tr>
-            <tr><td>РумМаркет</td><td>Широкий общестрой, частичное пересечение</td><td>Средние</td><td>~5 точек</td><td class="stars">3.6–3.9 (22–34)</td></tr>
-            <tr><td>Абакан строй</td><td>Окна, двери, полы</td><td>Средние</td><td>3 филиала</td><td class="stars">4.7 (20)</td></tr>
+            <tr><td>РумМаркет</td><td>Широкий общестрой, частичное пересечение</td><td>Средние</td><td>~5 точек</td><td class="stars">4.3–4.7</td></tr>
+            <tr><td>Абакан строй</td><td>Окна, двери, полы</td><td>Средние</td><td>3 филиала</td><td class="stars">4.7</td></tr>
             <tr><td>Домострой</td><td>Обои + строймаркет</td><td>Средние</td><td>1 точка</td><td class="stars">н/д</td></tr>
             <tr><td>Строймаркет / Ошеан</td><td>Эконом-общестрой</td><td>Эконом</td><td>2–5 точек</td><td class="stars">н/д</td></tr>
           </tbody>
         </table>
       </div>
-      <p class="quote-link">Подробности: <a href="01-конкуренты.md">01-конкуренты.md</a></p>
+      <p class="quote-link">Подробности: <a href="01-конкуренты.md">01-конкуренты.md</a> · обновление: <a href="Обновление 2026-08-01/01-конкуренты-обновление.md">01-конкуренты-обновление.md</a></p>
     </section>
 
     <section id="s4">
       <p class="num-tag">04</p>
-      <h2>Рынок и спрос — коротко</h2>
+      <h2>4. Рынок и спрос — коротко</h2>
       <ul>
-        <li>Население Тывы ≈338 тыс., но почти половина (155–165 тыс.) — в Кызылской агломерации (Кызыл + Каа-Хем + Сукпак).</li>
-        <li>Главный драйвер спроса — ИЖС: ~79% ввода жилья 2025 года, подпитано льготной ипотекой 2% и сельской ипотекой до 3%. Ввод жилья вырос почти вдвое за 2 года.</li>
-        <li>Доходы одни из самых низких в РФ (≈34–39 тыс. ₽/мес), бедность ~20% — но быстро снижается. Ценочувствительность высокая: важны рассрочка, эконом- и средний сегмент.</li>
-        <li>Нет газа — отопление уголь/электричество, идёт программа «Чистый воздух» → растущий спрос на энергоэффективность (утепление, панели, плотные двери, герметики/пена).</li>
-        <li>Сезонность: пик май–сентябрь (стройка), спад ноябрь–март (только внутренняя отделка) — склад и акции планировать на январь–февраль.</li>
-        <li>Оценка рынка: грубо 3–4 млрд ₽/год оборота по отделке нового ИЖС в республике — рынка достаточно для сети из 2–4 магазинов.</li>
+        <li>Население Тывы ≈338 тыс., почти половина (155–165 тыс.) — в Кызылской агломерации. Без изменений.</li>
+        <li>Ввод жилья 2025 уточнён вверх: было 443,3 тыс. м² (прогноз) → стало <strong>466,9 тыс. м² (факт)</strong>, озвучено на визите Мишустина 01.08. Доля ИЖС ~79% подтверждается.</li>
+        <li>Тувинская ипотека 2% выбрана на <strong>74,5% лимита</strong> (745 из 1000 договоров) — риск исчерпания к октябрю-ноябрю, плюс с 1 октября меняются федеральные условия семейной ипотеки.</li>
+        <li>Каа-Хем (мкр «Преображенский», 880 квартир) — приоритет №1 расширения теперь подтверждён документально: водозабор по нацпроекту «Чистая вода» уже построен.</li>
+        <li>Появился новый кандидат-локация внутри самого Кызыла — мкр «Иркутский» (130 тыс. м² жилья к 2031).</li>
+        <li>Нет газа — растущий спрос на энергоэффективность (утепление, панели, плотные двери, герметики/пена) сохраняется.</li>
       </ul>
-      <p class="quote-link">Подробности: <a href="02-локации-и-спрос.md">02-локации-и-спрос.md</a></p>
+      <p class="quote-link">Подробности: <a href="02-локации-и-спрос.md">02-локации-и-спрос.md</a> · обновление: <a href="Обновление 2026-08-01/02-локации-и-спрос-обновление.md">02-локации-и-спрос-обновление.md</a></p>
     </section>
 
     <section id="s5">
       <p class="num-tag">05</p>
-      <h2>План развития сети</h2>
-      <p>Четыре последовательных этапа — каждый следующий открывается по факту результатов предыдущего, а не параллельно.</p>
+      <h2>5. План развития сети</h2>
+      <p>Четыре последовательных этапа — каждый следующий открывается по факту результатов предыдущего, а не параллельно. Этап 0 — в процессе, первая контрольная точка (рейтинг 2ГИС) уже показывает прогресс.</p>
 
       <div class="timeline">
         <div class="phase">
           <div class="phase-head">
-            <span class="phase-tag">Этап 0</span>
+            <span class="phase-tag">Этап 0 · в процессе</span>
             <span class="phase-when">0–3 мес.</span>
           </div>
           <h3>Стабилизация текущего магазина — без новых точек</h3>
-          <p>Поднять рейтинг 2ГИС/Яндекс.Карт с 2.6 до 4.5+, разобраться в реальной причине низких оценок, навести порядок в сервисе. Запустить локальные паблики, реферальную программу, базу в WhatsApp. Использовать период для накопления кассы перед инвестициями в новые точки.</p>
+          <p>Поднять рейтинг 2ГИС/Яндекс.Карт с 2.6 до 4.5+ <span class="delta-pill up">▲ 3.8, в процессе</span>, разобраться в реальной причине низких оценок, навести порядок в сервисе. Запустить локальные паблики, реферальную программу, базу в WhatsApp.</p>
         </div>
         <div class="phase">
           <div class="phase-head">
             <span class="phase-tag">Этап 1</span>
-            <span class="phase-when">3–9 мес.</span>
+            <span class="phase-when">3–9 мес., целиться в авг.–сент. окно</span>
           </div>
           <h3>Второй магазин внутри Кызылской агломерации</h3>
-          <p>Локация: Каа-Хем / мкр «Спутник» — зона максимальной новой застройки (мкр «Преображенский» 880 квартир к 2030, «Спутник» ~2000 квартир). 5–15 км от текущего магазина, тот же склад и поставщики — самый низкорисковый шаг расширения.</p>
+          <p>Локация: Каа-Хем / мкр «Спутник» — приоритет теперь подтверждён документально (водозабор построен). Проверить также мкр «Иркутский» в самом Кызыле как альтернативу с более коротким логистическим плечом.</p>
         </div>
         <div class="phase">
           <div class="phase-head">
@@ -527,58 +621,54 @@
             <span class="phase-when">9–18 мес.</span>
           </div>
           <h3>Западный форпост — Ак-Довурак + Кызыл-Мажалык</h3>
-          <p>Второй по значимости узел республики (~16 тыс. чел. на двоих, 40 км друг от друга), конкуренции почти нет. Один магазин на два города, либо магазин + пункт выдачи. ~300 км от Кызыла — требует отдельного расчёта логистики.</p>
+          <p>Второй по значимости узел республики (~16 тыс. чел.), конкуренции почти нет. Без изменений за отчётный период.</p>
         </div>
         <div class="phase dim">
           <div class="phase-head">
             <span class="phase-tag">Этап 3</span>
-            <span class="phase-when">после 18 мес., по факту этапа 2</span>
+            <span class="phase-when">после 18 мес.</span>
           </div>
           <h3>Чадан — узел западного куста</h3>
-          <p>Промежуточная точка на трассе Кызыл–Ак-Довурак. Решение принимать только по результатам работы западного форпоста, не открывать параллельно с этапом 2.</p>
+          <p>Решение принимать только по результатам этапа 2.</p>
         </div>
       </div>
-
-      <h3>Не в приоритете</h3>
-      <p>Шагонар, Туран — средняя ёмкость, рассматривать только доставкой под заказ. Дальние кожууны (Самагалтай, Эрзин, Тээли и т.д., 3–4,5 тыс. чел.) — стационарная точка не окупится; только доставка под заказ.</p>
-      <p style="color:var(--text-muted); font-size:.9rem;"><strong>Важно:</strong> сроки и число магазинов — ориентир, требующий сверки с реальным бюджетом и капиталом владельца (этих данных не было в исследовании).</p>
     </section>
 
     <section id="s6">
       <p class="num-tag">06</p>
-      <h2>Маркетинговый план</h2>
+      <h2>6. Маркетинговый план</h2>
 
-      <h3>Немедленно, почти без бюджета (месяц 1)</h3>
+      <h3>Немедленно, почти без бюджета (месяц 1) — прогресс есть</h3>
       <ol class="priority-list">
-        <li><div><b>Починка репутации в 2ГИС/Яндекс.Картах <span class="tag">приоритет №1</span></b>Верифицировать карточки, наполнить фото/ассортиментом, системно собирать отзывы (QR на кассе, скидка за отзыв), оперативно отвечать на негатив. Цель: 2.6 → 4.5+ за 2–3 месяца.</div></li>
-        <li><div><b>Локальные паблики</b>Оживить ВК, ОК «Кызыл Тыва Объявления Барахолка», приложение «Вся Тыва» — посты о наличии, акциях, скидке 3%.</div></li>
+        <li><div><b>Починка репутации в 2ГИС/Яндекс.Картах <span class="tag">2.6 → 3.8, в процессе</span></b>Верифицировать карточки, продолжать сбор отзывов. Цель: 4.5+ за 2–3 месяца, следующий контроль 08–11.08.</div></li>
+        <li><div><b>Локальные паблики</b>Оживить ВК, ОК «Кызыл Тыва Объявления Барахолка», приложение «Вся Тыва» — активность за неделю дистанционно не проверена, нужна ручная сверка.</div></li>
         <li><div><b>Реферальная программа + база WhatsApp</b>«Приведи друга» + сбор клиентской базы в мессенджере.</div></li>
       </ol>
 
       <h3>Умеренный бюджет (месяцы 2–3)</h3>
       <ol class="priority-list">
-        <li><div><b>ВКонтакте + таргет <span class="tag">5–10 тыс ₽/мес</span></b>Сообщество + точечный VK Реклама по Кызылу на акции.</div></li>
+        <li><div><b>ВКонтакте + таргет <span class="tag">5–10 тыс ₽/мес</span></b>Сообщество + точечный VK Реклама по Кызылу на акции. Расценки без изменений.</div></li>
         <li><div><b>Telegram-канал + WhatsApp-рассылки</b>Наличие, скидки, сезонные предложения.</div></li>
         <li><div><b>Партнёрства с прорабами/бригадами/дизайнерами</b>B2B2C-канал, критичный именно для стройматериалов.</div></li>
       </ol>
 
       <h3>Опционально, под события (месяц 3+)</h3>
       <ol class="priority-list">
-        <li><div><b>Радио под акцию/открытие точки <span class="tag">13–23 ₽/сек</span></b>Короткая волна на конкретное событие.</div></li>
-        <li><div><b>Билборд-навигация <span class="tag">от 11 200 ₽/мес</span></b>Особенно актуально при открытии новых точек.</div></li>
+        <li><div><b>Радио под акцию/открытие точки <span class="tag">13–23 ₽/сек, без изменений</span></b>Короткая волна на конкретное событие.</div></li>
+        <li><div><b>Билборд-навигация <span class="tag">от 11 200 ₽/мес, без изменений</span></b>Особенно актуально при открытии новых точек.</div></li>
         <li><div><b>Instagram* через VPN</b>Визуальный контент «до/после» — если есть ресурс на съёмку.</div></li>
       </ol>
 
       <div class="not-do"><b>Чего не делать:</b> дорогое местное ТВ, газеты (аудитория стареющая, регион — самый молодой в РФ), широкий Яндекс.Директ с бюджетом &lt;10 тыс ₽/мес — кампания не обучится и не окупится.</div>
-      <p class="quote-link" style="margin-top:16px;">Подробности: <a href="03-каналы-продвижения.md">03-каналы-продвижения.md</a></p>
+      <p class="quote-link" style="margin-top:16px;">Подробности: <a href="03-каналы-продвижения.md">03-каналы-продвижения.md</a> · обновление: <a href="Обновление 2026-08-01/03-каналы-обновление.md">03-каналы-обновление.md</a></p>
     </section>
 
     <section id="s7">
       <p class="num-tag">07</p>
-      <h2>Первые 30 дней — чек-лист</h2>
+      <h2>7. Первые 30 дней — чек-лист</h2>
       <ul class="checklist chrome-font">
-        <li><input type="checkbox" id="c1"><label for="c1">Проверить и обновить карточки в 2ГИС и Яндекс.Картах (фото, ассортимент, часы работы, актуальный телефон)</label></li>
-        <li><input type="checkbox" id="c2"><label for="c2">Начать системный сбор отзывов у текущих покупателей (QR-код на кассе / в чате WhatsApp после покупки)</label></li>
+        <li><input type="checkbox" id="c1" checked disabled><label for="c1">Проверить и обновить карточки в 2ГИС и Яндекс.Картах — <b>выполнено</b>, рейтинг вырос до 3.8</label></li>
+        <li><input type="checkbox" id="c2" checked disabled><label for="c2">Начать системный сбор отзывов у текущих покупателей — <b>работает</b>, +3 оценки за неделю</label></li>
         <li><input type="checkbox" id="c3"><label for="c3">Изучить существующие негативные отзывы — понять реальную причину рейтинга 2.6 и устранить корневую проблему</label></li>
         <li><input type="checkbox" id="c4"><label for="c4">Создать/реактивировать группу ВКонтакте и страницу в Одноклассниках</label></li>
         <li><input type="checkbox" id="c5"><label for="c5">Разместить первые посты в 2–3 локальных пабликах-барахолках Кызыла</label></li>
@@ -589,10 +679,10 @@
 
     <section id="s8">
       <p class="num-tag">08</p>
-      <h2>Ключевые допущения и что нужно уточнить у владельца</h2>
+      <h2>8. Ключевые допущения и что нужно уточнить у владельца</h2>
       <ul>
-        <li>Точный бюджет и горизонт на открытие новых точек — не был известен на момент исследования; план дан по приоритетам локаций, а не по срокам с привязкой к деньгам.</li>
-        <li>Реальная причина низкого рейтинга 2ГИС (сервис? цены? наличие?) — нужно поднять тексты отзывов вручную.</li>
+        <li>Точный бюджет и горизонт на открытие новых точек — план дан по приоритетам локаций, а не по срокам с привязкой к деньгам. Учитывая ипотечное окно август-сентябрь, вопрос бюджета стал более срочным.</li>
+        <li>Реальная причина низкого рейтинга 2ГИС — из свежих отзывов видно, что дело в сервисе (конкретный сотрудник, расхождение режима работы); стоит разобраться предметно.</li>
         <li>Есть ли уже отношения с поставщиками, которые выдержат масштабирование на 2–3 магазина.</li>
         <li>Готовность управлять удалённой точкой (Ак-Довурак/Чадан) — наём, логистика, контроль.</li>
       </ul>
@@ -602,5 +692,5 @@
 </div>
 
 <footer>
-  Исследование опиралось только на открытые источники (2ГИС, Яндекс.Карты, Росстат, СМИ Тывы) — часть цифр ориентировочная и отмечена в первичных отчётах. Полные списки источников — в файлах <a href="01-конкуренты.md">01-конкуренты.md</a>, <a href="02-локации-и-спрос.md">02-локации-и-спрос.md</a>, <a href="03-каналы-продвижения.md">03-каналы-продвижения.md</a>.
+  Исследование опиралось только на открытые источники (2ГИС, Яндекс.Карты, Росстат, СМИ Тывы) — часть цифр ориентировочная и отмечена в первичных отчётах. Обновление от 01.08.2026 зафиксировало подтверждённую динамику за 5 дней. Полные списки источников — в файлах <a href="01-конкуренты.md">01-конкуренты.md</a>, <a href="02-локации-и-спрос.md">02-локации-и-спрос.md</a>, <a href="03-каналы-продвижения.md">03-каналы-продвижения.md</a> и в папке <a href="Обновление 2026-08-01/00-динамика-изменений.md">Обновление 2026-08-01</a>.
 </footer>
